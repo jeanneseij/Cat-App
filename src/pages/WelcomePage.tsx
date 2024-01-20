@@ -9,6 +9,7 @@ import {
   ExploreButton,
 } from './WelcomePageStyles';
 
+// Defining types for cat images fetched from the API
 type CatImage = {
   id: string;
   url: string;
@@ -18,9 +19,12 @@ const WelcomePage = () => {
   const [catImages, setCatImages] = useState<CatImage[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  // Fetching cat images from the API
   const fetchCatImages = async () => {
     try {
+      // API key for authentication
       const apiKey = 'live_X3e38glAe1lJutfCZeC6XUWz9u4XfdD9uYM1kLwaEIRzTou3bMZzYpM09geLxRRd';
+      
       const response = await axios.get('https://api.thecatapi.com/v1/images/search?limit=10', {
         headers: {
           'Content-Type': 'application/json',
@@ -38,18 +42,22 @@ const WelcomePage = () => {
     }
   };
 
+  // Fetch cat images when the component mounts
   useEffect(() => {
     fetchCatImages();
   }, []);
 
+  // Auto-rotate the images every 10 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentImageIndex(prevIndex => (prevIndex + 1) % catImages.length);
     }, 10000);
 
+    // Clear the timer when the component unmounts
     return () => clearInterval(timer);
   }, [catImages.length]);
 
+  // Get the current and next cat images
   const currentImage = catImages[currentImageIndex];
   const nextImage = catImages[(currentImageIndex + 1) % catImages.length];
 
