@@ -1,5 +1,23 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
+
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const fadeOut = keyframes`
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
 
 export const WelcomeContainer = styled.div`
   width: 100vw;
@@ -41,7 +59,17 @@ export const SlideshowImage = styled.img`
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
+  position: absolute;
+  opacity: 0;
   border-radius: 5px;
+
+  &.fadeIn {
+    animation: ${fadeIn} 5s ease-in-out forwards;
+  }
+
+  &.fadeOut {
+    animation: ${fadeOut} 5s ease-in-out forwards;
+  }
 `;
 
 export const ExploreButton = styled(Link)`
