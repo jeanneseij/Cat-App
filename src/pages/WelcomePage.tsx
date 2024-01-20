@@ -23,7 +23,7 @@ const WelcomePage = () => {
   const fetchCatImages = async () => {
     try {
       // API key for authentication
-      const apiKey = 'live_X3e38glAe1lJutfCZeC6XUWz9u4XfdD9uYM1kLwaEIRzTou3bMZzYpM09geLxRRd';
+      const apiKey = process.env.CAT_API_KEY;
       
       const response = await axios.get('https://api.thecatapi.com/v1/images/search?limit=10', {
         headers: {
