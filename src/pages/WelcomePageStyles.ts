@@ -25,6 +25,25 @@ export const Description = styled.p`
   line-height: 1.6;
 `;
 
+export const SlideshowContainer = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+  height: 400px;
+  margin: 1rem 0;
+  background-color: transparent;
+`;
+
+export const SlideshowImage = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 5px;
+`;
+
 export const ExploreButton = styled(Link)`
   background-color: #5a3825;
   color: #f3dace;
