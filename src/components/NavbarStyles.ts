@@ -7,7 +7,13 @@ export const StyledNavbar = styled(Navbar)`
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 1rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 2px -2px gray;
 `;
+
 
 export const NavbarBrandContainer = styled.div`
   display: flex;

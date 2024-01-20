@@ -15,10 +15,7 @@ const NavbarComponent = () => {
         </LinkContainer>
       </NavbarBrandContainer>
       <StyledNav>
-        <LinkContainer to="/">
-          <StyledNavLink>Home</StyledNavLink>
-        </LinkContainer>
-        <LinkContainer to="/cats">
+        <LinkContainer to="/home">
           <StyledNavLink>Cats</StyledNavLink>
         </LinkContainer>
         <LinkContainer to="/votes">
