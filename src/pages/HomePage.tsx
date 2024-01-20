@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { CenteredContainer, StyledSelect, ImagesContainer, ImageContainer, Image, LoadMoreButton} from './HomePageStyles';
+import { CenteredContainer, StyledSelect, ImagesContainer, ImageContainer, Image, LoadMoreButton, ViewDetailsButton} from './HomePageStyles';
 import { BreedOption, ImageType, fetchBreedOptions, fetchBreedImages } from '../services/catApi';
 
 const HomePage = () => {
@@ -9,6 +9,8 @@ const HomePage = () => {
   const [selectedBreed, setSelectedBreed] = useState<BreedOption | null>(null);
   const [images, setImages] = useState<ImageType[]>([]);
   const [displayCount, setDisplayCount] = useState<number>(5);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -52,7 +54,12 @@ const HomePage = () => {
       <ImagesContainer>
         {images.slice(0, displayCount).map((image, index) => (
           <ImageContainer key={index}>
-            <Image src={image.url} alt="Cat" />
+            <Image className="image" src={image.url} alt="Cat" />
+            <ViewDetailsButton 
+              className="view-details-button" 
+              onClick={() => navigate(`/cat/${image.id}`)}>
+              View Details
+            </ViewDetailsButton>
           </ImageContainer>
         ))}
       </ImagesContainer>
