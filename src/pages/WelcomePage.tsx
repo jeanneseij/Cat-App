@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { fetchCatImages, CatImage } from '../services/catApi';
 import {
   WelcomeContainer,
   BrandName,
@@ -9,42 +9,18 @@ import {
   ExploreButton,
 } from './WelcomePageStyles';
 
-// Defining types for cat images fetched from the API
-type CatImage = {
-  id: string;
-  url: string;
-};
-
 const WelcomePage = () => {
   const [catImages, setCatImages] = useState<CatImage[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Fetching cat images from the API
-  const fetchCatImages = async () => {
-    try {
-      // API key for authentication
-      const apiKey = process.env.CAT_API_KEY;
-      
-      const response = await axios.get('https://api.thecatapi.com/v1/images/search?limit=10', {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-        },
-      });
-
-      if (response.status === 200) {
-        setCatImages(response.data);
-      } else {
-        throw new Error('Network response was not ok');
-      }
-    } catch (error) {
-      console.error('Error fetching cat images:', error);
-    }
-  };
-
-  // Fetch cat images when the component mounts
   useEffect(() => {
-    fetchCatImages();
+    const loadCatImages = async () => {
+      const images = await fetchCatImages();
+      setCatImages(images);
+    };
+
+    loadCatImages();
   }, []);
 
   // Auto-rotate the images every 10 seconds
