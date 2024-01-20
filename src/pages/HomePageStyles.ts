@@ -19,3 +19,27 @@ export const StyledSelect = styled.div`
     width: 300px;
   }
 `;
+
+export const ImagesContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  justify-content: center;
+  gap: 50px;
+  padding: 10px 0;
+  max-width: 1200px;
+  margin: 0 auto;
+`;
+
+export const ImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border-radius: 5px;
+  overflow: hidden;
+`;
+
+export const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;

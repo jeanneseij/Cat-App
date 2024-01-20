@@ -10,6 +10,11 @@ export type BreedOption = {
   label: string; 
 };
 
+export type ImageType = { 
+  url: string; 
+  id: string; 
+};
+
 const baseUrl = process.env.REACT_APP_CAT_API_BASE_URL;
 const apiKey = process.env.REACT_APP_CAT_API_KEY;
 
@@ -59,5 +64,26 @@ export const fetchBreedOptions = async (): Promise<BreedOption[]> => {
   } catch (error) {
     console.error(error);
     throw error;
+  }
+};
+
+//Fetching of cat images of selected breed
+export const fetchBreedImages = async (breedId: string): Promise<ImageType[]> => {
+  try {
+    const response = await axios.get(`${baseUrl}/images/search?breed_ids=${breedId}&limit=50`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+      },
+    });
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error('Error fetching images');
+    }
+  } catch (error) {
+    console.error('Error fetching images:', error);
+    return [];
   }
 };
