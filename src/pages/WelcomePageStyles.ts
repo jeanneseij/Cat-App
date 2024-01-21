@@ -28,7 +28,7 @@ export const WelcomeContainer = styled.div`
   align-items: center;
   background-color: #ffff;
   color: #5a3825;
-  padding: 2rem;
+  padding: 0 1rem;
   text-align: center;
 `;
 

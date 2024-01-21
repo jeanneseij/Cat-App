@@ -3,37 +3,62 @@ import Select from 'react-select';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { CenteredContainer, StyledSelect, ImagesContainer, ImageContainer, Image, LoadMoreButton, ViewDetailsButton} from './HomePageStyles';
 import { BreedOption, ImageType, fetchBreedOptions, fetchBreedImages } from '../services/catApi';
+import ApiErrorAlert from '../components/ApiErrorAlertComponent';
 
 const HomePage = () => {
   const [breedOptions, setBreedOptions] = useState<BreedOption[]>([]);
   const [selectedBreed, setSelectedBreed] = useState<BreedOption | null>(null);
   const [images, setImages] = useState<ImageType[]>([]);
   const [displayCount, setDisplayCount] = useState<number>(5);
+  const [breedOptionsError, setBreedOptionsError] = useState<boolean>(false);
+  const [breedImagesError, setBreedImagesError] = useState<boolean>(false);
+  const [isFetchingBreeds, setIsFetchingBreeds] = useState(true);
+  const [isFetchingImages, setIsFetchingImages] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     async function fetchData() {
+      setIsFetchingBreeds(true);
       try {
         const options = await fetchBreedOptions();
-        setBreedOptions(options);
+        if (options.length === 0) {
+          setBreedOptionsError(true);
+        } else {
+          setBreedOptions(options);
+          setBreedOptionsError(false);
+        }
       } catch (error) { 
-        throw new Error('An error occurred while fetching data. Please try again.');
+        setBreedOptionsError(true);
+      } finally {
+        setIsFetchingBreeds(false);
       }
     }
-
+  
     fetchData();
   }, []);
 
   useEffect(() => {
     const loadImages = async () => {
       if (selectedBreed) {
-        const breedImages = await fetchBreedImages(selectedBreed.value);
-        setImages(breedImages);
+        setIsFetchingImages(true);
+        try {
+          const breedImages = await fetchBreedImages(selectedBreed.value);
+          if (breedImages.length === 0) {
+            setBreedImagesError(true);
+          } else {
+            setImages(breedImages);
+            setBreedImagesError(false);
+          }
+        } catch (error) {
+          setBreedImagesError(true);
+        } finally {
+          setIsFetchingImages(false);
+        }
       }
     };
-
+  
     loadImages();
   }, [selectedBreed]);
 
@@ -52,30 +77,44 @@ const HomePage = () => {
 
   return (
     <CenteredContainer>
-      <StyledSelect>
-        <Select
-          options={breedOptions}
-          onChange={option => setSelectedBreed(option)}
-          value={selectedBreed}
-          placeholder="Select Breed To Explore"
-          isSearchable
-        />
-      </StyledSelect>
-      <ImagesContainer>
-        {images.slice(0, displayCount).map((image, index) => (
-          <ImageContainer key={index}>
-            <Image className="image" src={image.url} alt="Cat" />
-            <ViewDetailsButton 
-              className="view-details-button" 
-              onClick={() => navigate(`/cat/${image.id}`)}>
-              View Details
-            </ViewDetailsButton>
-          </ImageContainer>
-        ))}
-      </ImagesContainer>
-  
-      {displayCount < images.length && (
-        <LoadMoreButton onClick={handleLoadMore}>Load More</LoadMoreButton>
+      {/* Conditional rendering for breed options */}
+      {isFetchingBreeds ? (
+        <div>Loading breeds...</div>
+      ) : breedOptionsError ? (
+        <ApiErrorAlert message="Apologies but we could not load cat breeds for you at this time! Miau!" />
+      ) : (
+        <StyledSelect>
+          <Select
+            options={breedOptions}
+            onChange={option => setSelectedBreed(option)}
+            value={selectedBreed}
+            placeholder="Select Breed To Explore"
+            isSearchable
+          />
+        </StyledSelect>
+      )}
+      {isFetchingImages ? (
+        <div>Loading images...</div>
+      ) : breedImagesError ? (
+        <ApiErrorAlert message="Apologies but we could not load images for this breed at this time! Miau!" />
+      ) : (
+        <>
+          <ImagesContainer>
+            {images.slice(0, displayCount).map((image, index) => (
+              <ImageContainer key={index}>
+                <Image className="image" src={image.url} alt="Cat" />
+                <ViewDetailsButton 
+                  className="view-details-button" 
+                  onClick={() => navigate(`/cat/${image.id}`)}>
+                  View Details
+                </ViewDetailsButton>
+              </ImageContainer>
+            ))}
+          </ImagesContainer>
+          {displayCount < images.length && (
+            <LoadMoreButton onClick={handleLoadMore}>Load More</LoadMoreButton>
+          )}
+        </>
       )}
     </CenteredContainer>
   );

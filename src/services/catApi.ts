@@ -77,7 +77,7 @@ export const fetchBreedOptions = async (): Promise<BreedOption[]> => {
     }));
   } catch (error) {
     console.error(error);
-    throw error;
+    return [];
   }
 };
 
