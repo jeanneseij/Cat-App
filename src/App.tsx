@@ -6,11 +6,13 @@ import SingleCatPage from './pages/SingleCatPage';
 import HomePage from './pages/HomePage';
 import VotesPage from './pages/VotesPage';
 import FavoritesPage from './pages/FavoritesPage';
+import { GlobalStyles } from './GlobalStyles';
 
 const App = () => {
 
   return (
       <Router>
+        <GlobalStyles />
         <NavbarComponent />
         <Routes>
           <Route path="/" element={<WelcomePage />} />
