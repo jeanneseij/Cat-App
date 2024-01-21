@@ -15,8 +15,28 @@ export type ImageType = {
   id: string; 
 };
 
+type CatBreed = {
+  id: string;
+  name: string;
+  temperament: string;
+  origin: string;
+  description: string;
+};
+
+export type CatData = {
+  id: string;
+  width: number;
+  height: number;
+  url: string;
+  breeds: CatBreed[];
+};
+
 const baseUrl = process.env.REACT_APP_CAT_API_BASE_URL;
 const apiKey = process.env.REACT_APP_CAT_API_KEY;
+const headers = {
+    'Content-Type': 'application/json',
+    'x-api-key': apiKey,
+  }
 
 // Fetching of 10 random cat images from API
 export const fetchCatImages = async (): Promise<CatImage[]> => {
@@ -26,10 +46,7 @@ export const fetchCatImages = async (): Promise<CatImage[]> => {
     }
 
     const response = await axios.get(`${baseUrl}/images/search?limit=10`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-      },
+      headers: headers,
     });
 
     if (response.status === 200) {
@@ -51,10 +68,7 @@ export const fetchBreedOptions = async (): Promise<BreedOption[]> => {
     }
     
     const response = await axios.get(`${baseUrl}/breeds`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-      },
+      headers: headers,
     });
 
     return response.data.map((breed: any) => ({
@@ -71,10 +85,7 @@ export const fetchBreedOptions = async (): Promise<BreedOption[]> => {
 export const fetchBreedImages = async (breedId: string): Promise<ImageType[]> => {
   try {
     const response = await axios.get(`${baseUrl}/images/search?breed_ids=${breedId}&limit=50`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-      },
+      headers: headers,
     });
 
     if (response.status === 200) {
@@ -85,5 +96,27 @@ export const fetchBreedImages = async (breedId: string): Promise<ImageType[]> =>
   } catch (error) {
     console.error('Error fetching images:', error);
     return [];
+  }
+};
+
+//Fetching of cat details
+export const fetchCatData = async (catId: string): Promise<CatData | null> => {
+  try {
+    if (!baseUrl || !apiKey) {
+      throw new Error('API configuration is missing');
+    }
+
+    const response = await axios.get(`${baseUrl}/images/${catId}`, {
+      headers: headers,
+    });
+
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error('Error fetching data');
+    }
+  } catch (error) {
+    console.error('Error fetching cat data:', error);
+    return null;
   }
 };
