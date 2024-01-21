@@ -1,6 +1,16 @@
 import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 
+// Import a custom Google Font
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+  body {
+    font-family: 'Lato', sans-serif;
+  }
+`;
+
 const fadeIn = keyframes`
   0% {
     opacity: 0;
@@ -10,17 +20,17 @@ const fadeIn = keyframes`
   }
 `;
 
-const fadeOut = keyframes`
+const scaleUp = keyframes`
   0% {
-    opacity: 1;
+    transform: scale(1);
   }
   100% {
-    opacity: 0;
+    transform: scale(1.05);
   }
 `;
 
 export const WelcomeContainer = styled.div`
-  width: 100vw;
+  max-width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,12 +45,14 @@ export const WelcomeContainer = styled.div`
 export const BrandName = styled.h1`
   font-size: 2.5rem;
   margin-bottom: 1rem;
+  font-weight: 700;
 `;
 
 export const Description = styled.p`
   font-size: 1.2rem;
   margin-bottom: 2rem;
   line-height: 1.6;
+  font-weight: 400;
 `;
 
 export const SlideshowContainer = styled.div`
@@ -49,15 +61,16 @@ export const SlideshowContainer = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  width: 100%;
-  height: 400px;
+  width: 90%;
+  height: 500px;
   margin: 1rem 0;
   background-color: transparent;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 `;
 
 export const SlideshowImage = styled.img`
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 90%;
+  max-height: 90%;
   object-fit: contain;
   position: absolute;
   opacity: 0;
@@ -65,10 +78,6 @@ export const SlideshowImage = styled.img`
 
   &.fadeIn {
     animation: ${fadeIn} 5s ease-in-out forwards;
-  }
-
-  &.fadeOut {
-    animation: ${fadeOut} 5s ease-in-out forwards;
   }
 `;
 
@@ -80,10 +89,11 @@ export const ExploreButton = styled(Link)`
   border-radius: 5px;
   text-decoration: none;
   font-size: 1.2rem;
-  transition: background-color 0.3s, transform 0.3s;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 
   &:hover {
     background-color: #7c5948;
-    transform: scale(1.05);
+    animation: ${scaleUp} 0.3s ease forwards;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
   }
 `;
