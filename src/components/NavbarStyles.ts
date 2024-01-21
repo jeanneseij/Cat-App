@@ -39,16 +39,9 @@ export const NavbarBrandContainer = styled.div`
   }
 `;
 
-// export const StyledImage = styled.img`
-//   width: 100%;
-//   height: 100%;
-//   margin: 0;
-//   border: solid black;
-// `;
-
 export const StyledNav = styled(Nav)`
   display: flex;
-  margin-right: 125.5px;
+  margin-right: 70px;
   justify-content: center;
   flex-grow: 1;
   padding-left: 0;
