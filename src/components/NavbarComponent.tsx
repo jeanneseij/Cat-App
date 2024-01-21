@@ -1,7 +1,7 @@
 import React from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { StyledNavbar, StyledNav, StyledNavLink, NavbarBrandContainer } from './NavbarStyles';
-import { CAT_EARS_LOGO_URL } from '../constants/urls'; // Importing the URL from the constants file
+import { CAT_LOGO_URL } from '../constants/urls'; 
 
 const NavbarComponent = () => {
   return (
@@ -9,7 +9,7 @@ const NavbarComponent = () => {
       <NavbarBrandContainer>
         <LinkContainer to="/">
           <StyledNavbar.Brand as="span">
-            <img src={CAT_EARS_LOGO_URL} alt="Cat Ears Logo" />
+            <img src={CAT_LOGO_URL} alt="Cat Ears Logo" />
             App
           </StyledNavbar.Brand>
         </LinkContainer>
