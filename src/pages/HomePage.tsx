@@ -11,6 +11,7 @@ const HomePage = () => {
   const [displayCount, setDisplayCount] = useState<number>(5);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     async function fetchData() {
@@ -39,6 +40,15 @@ const HomePage = () => {
   const handleLoadMore = () => {
     setDisplayCount(prevCount => Math.min(prevCount + 5, images.length));
   };
+
+  useEffect(() => {
+    const breedIdFromQuery = new URLSearchParams(location.search).get('breedId');
+    if (breedIdFromQuery) {
+      fetchBreedImages(breedIdFromQuery);
+      const selectedBreedOption = breedOptions.find(option => option.value === breedIdFromQuery);
+      setSelectedBreed(selectedBreedOption || null);
+    }
+  }, [breedOptions, location.search]);
 
   return (
     <CenteredContainer>

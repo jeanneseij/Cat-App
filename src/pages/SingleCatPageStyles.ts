@@ -10,6 +10,7 @@ export const Container = styled.div`
 `;
 
 export const ImageContainer = styled.div`
+  position: relative;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 10px;
@@ -19,6 +20,48 @@ export const ImageContainer = styled.div`
   max-width: 1200px;
   display: flex;
   justify-content: center
+`;
+
+export const BackButton = styled.button`
+  position: absolute;
+  top: 10px;
+  left: 30px;
+  width: 55px; // Initial width
+  height: 55px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  background-color: #f3dace;
+  color: #333;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: width 0.3s ease;
+  overflow: hidden; // To keep the transition smooth
+
+  &:before {
+    content: '←'; // Unicode left-pointing arrow
+    position: absolute;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover {
+    width: 100px; // Width on hover to fit "Back"
+    background-color: #e1bba7;
+
+    &:before {
+      opacity: 0; // Hide the arrow on hover
+    }
+
+    &:after {
+      content: 'Back'; // Text to show on hover
+      position: absolute;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+  }
 `;
 
 export const CatImage = styled.img`
@@ -45,5 +88,3 @@ export const DetailItem = styled.p`
   font-size: 16px;
   color: #333;
 `;
-
-

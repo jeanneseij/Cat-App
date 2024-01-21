@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Container, ImageContainer, CatImage, DetailsContainer, DetailItem } from './SingleCatPageStyles';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Container, ImageContainer, CatImage, DetailsContainer, DetailItem, BackButton } from './SingleCatPageStyles';
 import { fetchCatData, CatData } from '../services/catApi';
 
 
 const SingleCatPage = () => {
   const { catId } = useParams<{ catId: string }>();
   const [catData, setCatData] = useState<CatData | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,9 +24,18 @@ const SingleCatPage = () => {
 
   const breed = catData.breeds[0];
 
+  const goBackToHomePage = () => {
+    if (breed) {
+      navigate(`/home?breedId=${breed.id}`);
+    } else {
+      navigate(-1);
+    }
+  };
+
   return (
     <Container>
       <ImageContainer>
+        <BackButton onClick={goBackToHomePage}></BackButton>
         <CatImage src={catData.url} alt={breed.name} />
       </ImageContainer>
       <DetailsContainer>
