@@ -18,19 +18,33 @@ export const StyledNavbar = styled(Navbar)`
 export const NavbarBrandContainer = styled.div`
   display: flex;
   align-items: center;
+  transition: transform 0.3s;
 
   .navbar-brand {
     display: flex;
     align-items: center;
-    font-size: 1.5em;
+    font-size: 1.3em;
+    font-weight: 600;
     color: #5a3825;
 
     img {
-      height: 40px;
-      margin-right: 10px;
+      height: 50px;
+      margin-right: 0px;
     }
   }
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1, 1.1);
+  }
 `;
+
+// export const StyledImage = styled.img`
+//   width: 100%;
+//   height: 100%;
+//   margin: 0;
+//   border: solid black;
+// `;
 
 export const StyledNav = styled(Nav)`
   display: flex;
@@ -54,6 +68,7 @@ export const StyledNavLink = styled(Nav.Link)`
 
   &:hover {
     color: #7c5948;
+    font-weight: 700;
     transform: scale(1.3, 1.3);
   }
 `;

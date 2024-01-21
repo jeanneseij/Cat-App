@@ -10,7 +10,7 @@ const NavbarComponent = () => {
         <LinkContainer to="/">
           <StyledNavbar.Brand as="span">
             <img src={CAT_EARS_LOGO_URL} alt="Cat Ears Logo" />
-            Cat App
+            App
           </StyledNavbar.Brand>
         </LinkContainer>
       </NavbarBrandContainer>
