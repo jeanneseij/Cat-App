@@ -1,16 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-// Import a custom Google Font
-import { createGlobalStyle } from 'styled-components';
-
-export const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
-  body {
-    font-family: 'Lato', sans-serif;
-  }
-`;
-
 const fadeIn = keyframes`
   0% {
     opacity: 0;
@@ -43,9 +33,20 @@ export const WelcomeContainer = styled.div`
 `;
 
 export const BrandName = styled.h1`
+  display: flex;
+  align-items: center;
+  justify-content: center; 
   font-size: 2.5rem;
-  margin-bottom: 1rem;
+  margin-top: 70px;
+  margin-bottom: 0;
+  padding-right: 15px;
   font-weight: 700;
+
+  img {
+    height: 100px;
+    margin-right: 0px;
+    margin-bottom: 0;
+  }
 `;
 
 export const Description = styled.p`
@@ -63,9 +64,9 @@ export const SlideshowContainer = styled.div`
   overflow: hidden;
   width: 90%;
   height: 500px;
-  margin: 1rem 0;
+  margin: 0;
   background-color: transparent;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.1);
 `;
 
 export const SlideshowImage = styled.img`
