@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchCatImages, CatImage } from '../services/catApi';
+import { CAT_EARS_LOGO_URL } from '../constants/urls';
 import ApiErrorAlert from '../components/ApiErrorAlertComponent';
 import {
   WelcomeContainer,
@@ -49,7 +50,10 @@ const WelcomePage = () => {
 
   return (
     <WelcomeContainer>
-      <BrandName>Cat App</BrandName>
+      <BrandName>
+        <img src={CAT_EARS_LOGO_URL} alt="Cat Ears Logo" /> 
+        App
+      </BrandName>
       <SlideshowContainer>
         {isLoading ? (
           <div>Loading...</div>
