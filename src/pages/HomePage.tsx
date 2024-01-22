@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { CenteredContainer, StyledSelect, ImagesContainer, ImageContainer, Image, LoadMoreButton, ViewDetailsButton} from './HomePageStyles';
 import { BreedOption, ImageType, fetchBreedOptions, fetchBreedImages } from '../services/catApi';
 import ApiErrorAlert from '../components/ApiErrorAlertComponent';
+import LoadingIcon from '../components/LoadingIconComponent'
 
 const HomePage = () => {
   const [breedOptions, setBreedOptions] = useState<BreedOption[]>([]);
@@ -12,8 +13,8 @@ const HomePage = () => {
   const [displayCount, setDisplayCount] = useState<number>(5);
   const [breedOptionsError, setBreedOptionsError] = useState<boolean>(false);
   const [breedImagesError, setBreedImagesError] = useState<boolean>(false);
-  const [isFetchingBreeds, setIsFetchingBreeds] = useState(true);
-  const [isFetchingImages, setIsFetchingImages] = useState(false);
+  const [isFetchingBreeds, setIsFetchingBreeds] = useState<boolean>(true);
+  const [isFetchingImages, setIsFetchingImages] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -77,9 +78,12 @@ const HomePage = () => {
 
   return (
     <CenteredContainer>
-      {/* Conditional rendering for breed options */}
       {isFetchingBreeds ? (
-        <div>Loading breeds...</div>
+        <div>
+          <CenteredContainer>
+            <LoadingIcon />
+          </CenteredContainer>
+        </div>
       ) : breedOptionsError ? (
         <ApiErrorAlert message="Apologies but we could not load cat breeds for you at this time! Miau!" />
       ) : (
@@ -94,7 +98,11 @@ const HomePage = () => {
         </StyledSelect>
       )}
       {isFetchingImages ? (
-        <div>Loading images...</div>
+        <div>
+          <CenteredContainer>
+            <LoadingIcon />
+          </CenteredContainer>
+        </div>
       ) : breedImagesError ? (
         <ApiErrorAlert message="Apologies but we could not load images for this breed at this time! Miau!" />
       ) : (

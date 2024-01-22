@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Lottie from 'react-lottie';
 import axios from 'axios';
+import { LOADING_ANIMATION_URL } from '../constants/urls';
 
 type LoadingIconProps = {
-  url: string; 
-}
+  url?: string;
+};
 
-const LoadingIcon = ({ url }: LoadingIconProps) => {
+const LoadingIcon = ({ url = LOADING_ANIMATION_URL }: LoadingIconProps) => {
   const [animationData, setAnimationData] = useState(null);
 
   useEffect(() => {

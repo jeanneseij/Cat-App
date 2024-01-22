@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Container, ImageContainer, CatImage, DetailsContainer, DetailItem, BackButton } from './SingleCatPageStyles';
 import { fetchCatData, CatData } from '../services/catApi';
 import ApiErrorAlert from '../components/ApiErrorAlertComponent';
+import LoadingIcon from '../components/LoadingIconComponent'
 
 
 const SingleCatPage = () => {
@@ -36,7 +37,7 @@ const SingleCatPage = () => {
     fetchData();
   }, [catId]);
 
-  if (loading) return <Container>Loading...</Container>;
+  if (loading) return <Container><LoadingIcon /></Container>;
   if (apiError) return <Container><ApiErrorAlert message="🐾 Apologies but we could not load the cat's details at this time! Miau!" /></Container>;
 
   const breed = catData?.breeds[0];
