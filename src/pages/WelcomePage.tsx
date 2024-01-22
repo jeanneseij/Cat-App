@@ -3,7 +3,6 @@ import { fetchCatImages, CatImage } from '../services/catApi';
 import { CAT_LOGO_URL } from '../constants/urls';
 import ApiErrorAlert from '../components/ApiErrorAlertComponent';
 import LoadingIcon from '../components/LoadingIconComponent'
-import { LOADING_ANIMATION_URL } from '../constants/urls';
 import {
   WelcomeContainer,
   BrandName,
@@ -58,7 +57,7 @@ const WelcomePage = () => {
       </BrandName>
       <SlideshowContainer>
         {isLoading ? (
-          <LoadingIcon url={LOADING_ANIMATION_URL}/>
+          <LoadingIcon />
         ) : error ? (
           <ApiErrorAlert message="Apologies but we could not load new cats for you at this time! Miau!" />
         ) : (
