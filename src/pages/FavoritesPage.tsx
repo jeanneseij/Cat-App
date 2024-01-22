@@ -1,7 +1,8 @@
 import React from 'react';
+import ComingSoonComponent from '../components/ComingSoonComponent';
 
 const FavoritesPage = () => {
-  return <div>Favorites Page</div>;
+  return <ComingSoonComponent />
 };
 
 export default FavoritesPage;
