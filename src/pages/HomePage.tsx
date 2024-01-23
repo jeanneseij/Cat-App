@@ -10,7 +10,7 @@ import { useCatBreedContext } from '../contexts/CatBreedContext';
 const HomePage = () => {
   const [breedOptions, setBreedOptions] = useState<BreedOption[]>([]);
   const [images, setImages] = useState<ImageType[]>([]);
-  const [displayCount, setDisplayCount] = useState<number>(5);
+  const [displayCount, setDisplayCount] = useState<number>(5); //Initially display only 5 images of the selected breed
   const [breedOptionsError, setBreedOptionsError] = useState<boolean>(false);
   const [breedImagesError, setBreedImagesError] = useState<boolean>(false);
   const [isFetchingBreeds, setIsFetchingBreeds] = useState<boolean>(true);
@@ -20,6 +20,7 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    //Fetch Breed Options from API
     async function fetchData() {
       setIsFetchingBreeds(true);
       try {
@@ -41,6 +42,7 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
+    //Fetch Images based on selected breed from API
     const loadImages = async () => {
       if (selectedBreed) {
         setIsFetchingImages(true);
@@ -64,6 +66,7 @@ const HomePage = () => {
   }, [selectedBreed]);
 
   const handleLoadMore = () => {
+    //Display 5 more images of the selected breed
     setDisplayCount(prevCount => Math.min(prevCount + 5, images.length));
   };
 
@@ -72,11 +75,13 @@ const HomePage = () => {
       {isFetchingBreeds ? (
         <div>
           <CenteredContainer>
-            <LoadingIcon />
+            <LoadingIcon /> {/*Return Loading Animation when in Loading State*/}
           </CenteredContainer>
         </div>
       ) : breedOptionsError ? (
-        <ApiErrorAlert message="Apologies but we could not load cat breeds for you at this time! Miau!" />
+        <>
+        <ApiErrorAlert message="Apologies but we could not load cat breeds for you at this time! Miau!" /> {/*Return Alert Banner when in ecnountering API error*/}
+        </>
       ) : (
         <StyledSelect>
           <Select
@@ -95,7 +100,9 @@ const HomePage = () => {
           </CenteredContainer>
         </div>
       ) : breedImagesError ? (
-        <ApiErrorAlert message="Apologies but we could not load images for this breed at this time! Miau!" />
+        <>
+        <ApiErrorAlert message="Apologies but we could not load images for this breed at this time! Miau!" /> {/*Return Alert Banner when in ecnountering API error*/}
+        </>
       ) : (
         <>
           <ImagesContainer>
@@ -111,7 +118,9 @@ const HomePage = () => {
             ))}
           </ImagesContainer>
           {displayCount < images.length && (
-            <LoadMoreButton onClick={handleLoadMore}>Load More</LoadMoreButton>
+            <>
+            <LoadMoreButton onClick={handleLoadMore}>Load More</LoadMoreButton> {/*Hide when all Images of that breed is displayed*/}
+            </>
           )}
         </>
       )}
