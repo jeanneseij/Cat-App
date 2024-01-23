@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import VotesPage from './pages/VotesPage';
 import FavoritesPage from './pages/FavoritesPage';
 import { GlobalStyles } from './GlobalStyles';
+import { CatBreedProvider } from './contexts/CatBreedContext';
 
 const App = () => {
 
@@ -14,6 +15,7 @@ const App = () => {
       <Router>
         <GlobalStyles />
         <NavbarComponent />
+        <CatBreedProvider>
         <Routes>
           <Route path="/" element={<WelcomePage />} />
           <Route path="/home" element={<HomePage />} />
@@ -21,6 +23,7 @@ const App = () => {
           <Route path="/votes" element={<VotesPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
         </Routes>
+        </CatBreedProvider>
       </Router>
   );
 };

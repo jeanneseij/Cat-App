@@ -10,37 +10,35 @@ const SingleCatPage = () => {
   const { catId } = useParams<{ catId: string }>();
   const [catData, setCatData] = useState<CatData | null>(null);
   const [apiError, setApiError] = useState<boolean>(false);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     //Fetch Cat Details and set loading state
     async function fetchData() {
-      setLoading(true);
+      setIsLoading(true);
       try {
         if (catId) {
           const data = await fetchCatData(catId);
           if (data === null) {
             setApiError(true);
-            setLoading(false);
+            setIsLoading(false);
           } else {
             setCatData(data);
             setApiError(false);
-            setLoading(false);
+            setIsLoading(false);
           }
         }
       } catch {
         setApiError(true);
-        setLoading(false);
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, [catId]);
 
-  //Return if in Loading State
-  if (loading) return <Container><LoadingIcon /></Container>;
-  //Return if there is Error in API fetching
+  if (isLoading) return <Container><LoadingIcon /></Container>;
   if (apiError) return <Container><ApiErrorAlert message="🐾 Apologies but we could not load the cat's details at this time! Miau!" /></Container>;
 
   const breed = catData?.breeds[0];
@@ -48,7 +46,7 @@ const SingleCatPage = () => {
   //Passing params to /home for immediate breed selection based on previously selected breed
   const goBackToHomePage = () => {
     if (breed) {
-      navigate(`/home?breedId=${breed.id}`);
+      navigate(`/home`);
     } else {
       navigate(-1);
     }
