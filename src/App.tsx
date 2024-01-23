@@ -12,7 +12,7 @@ import { CatBreedProvider } from './contexts/CatBreedContext';
 const App = () => {
 
   return (
-      <Router>
+      <Router basename="/cat-app">
         <GlobalStyles />
         <NavbarComponent />
         <CatBreedProvider>
