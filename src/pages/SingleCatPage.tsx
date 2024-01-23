@@ -60,11 +60,9 @@ const SingleCatPage = () => {
         <>
           <ImageContainer>
             <BackButton onClick={goBackToHomePage}></BackButton>
-            {/* Use optional chaining for catData and breed */}
             <CatImage src={catData?.url} alt={catData?.breeds[0]?.name ?? 'Cat'} />
           </ImageContainer>
           <DetailsContainer>
-            {/* Similarly, check each property */}
             <DetailItem>Name: {catData?.breeds[0]?.name}</DetailItem>
             <DetailItem>Origin: {catData?.breeds[0]?.origin}</DetailItem>
             <DetailItem>Temperament: {catData?.breeds[0]?.temperament}</DetailItem>
@@ -72,7 +70,9 @@ const SingleCatPage = () => {
           </DetailsContainer>
         </>
       ) : (
-        apiError && <ApiErrorAlert message="🐾 Apologies but we could not load the cat's details at this time! Miau!" />
+        <>
+        apiError && <ApiErrorAlert message="🐾 Apologies but we could not load the cat's details at this time! Miau!" /> {/*Return Alert Banner when in ecnountering API error*/}
+        </>
       )}
     </Container>
   );
