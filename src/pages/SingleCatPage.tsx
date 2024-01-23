@@ -14,34 +14,38 @@ const SingleCatPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    //Fetch Cat Details and set loading state
     async function fetchData() {
-      setLoading(true); // Set loading to true when starting to fetch
+      setLoading(true);
       try {
         if (catId) {
           const data = await fetchCatData(catId);
           if (data === null) {
             setApiError(true);
-            setLoading(false); // Set loading to false when fetch is complete
+            setLoading(false);
           } else {
             setCatData(data);
             setApiError(false);
-            setLoading(false); // Set loading to false when fetch is complete
+            setLoading(false);
           }
         }
       } catch {
         setApiError(true);
-        setLoading(false); // Set loading to false in case of an error
+        setLoading(false);
       }
     };
 
     fetchData();
   }, [catId]);
 
+  //Return if in Loading State
   if (loading) return <Container><LoadingIcon /></Container>;
+  //Return if there is Error in API fetching
   if (apiError) return <Container><ApiErrorAlert message="🐾 Apologies but we could not load the cat's details at this time! Miau!" /></Container>;
 
   const breed = catData?.breeds[0];
 
+  //Passing params to /home for immediate breed selection based on previously selected breed
   const goBackToHomePage = () => {
     if (breed) {
       navigate(`/home?breedId=${breed.id}`);
