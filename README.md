@@ -1,46 +1,49 @@
-# Getting Started with Create React App
+# cat-app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+cat-app is a React TypeScript project that showcases the use of the Cat API (https://docs.thecatapi.com/) to fetch and display adorable cat images. This README provides an overview of the project structure, the technologies used, and important notes regarding design choices.
 
-## Available Scripts
+Site URL: https://jeanneseij.github.io/cat-app
 
-In the project directory, you can run:
+## Technologies Used
 
-### `npm start`
+- React with TypeScript: I've built the project using Create React App with TypeScript. TypeScript brings strong typing to your project, enhancing code quality and development experience.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Styled Components: I've used Styled Components to manage and style my components in separate files. This approach promotes component reusability and maintainability.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Axios: I've used Axios for making HTTP requests to the Cat API. It provides a clean and promise-based way to fetch data from external sources.
 
-### `npm test`
+- Context API: I've implemented the Context API for state management in the application. It allows me to efficiently share and manage state across different components.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Lottie Animations: I've utilized Lottie for adding engaging animations to the Loading and Coming Soon components, enhancing the user experience.
 
-### `npm run build`
+## React Functions vs. React.FC
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+In this project, I've chosen to use React functions over React.FC (Functional Components). Here's why:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- React functions are the newer and recommended way to create functional components. They are simpler and provide better type inference when using TypeScript.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- React.FC has some limitations, such as unexpected behavior with defaultProps and children props. By using React functions, I avoid these potential issues.
 
-### `npm run eject`
+## Type vs. Interface
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+You may have noticed that I've opted for TypeScript `type` instead of `interface` for defining custom types. Here's the rationale:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- TypeScript `type` and `interface` serve similar purposes, but `type` provides more flexibility. I can use `type` for creating union types, intersections, and mapped types, making it versatile for complex type definitions.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- `type` is more suitable for cases where I need to define combinations of types or create aliases for existing types.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Placeholder Components
 
-## Learn More
+The Votes and Favorites route and components are included as placeholders in the project. They serve the purpose of populating the navigation bar, ensuring there is more than one link available. These components are intentionally left empty, as they are meant to be filled in with future features or functionalities.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Getting Started
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To get started with the Cat-App project, follow these steps:
+
+1. Clone the repository to your local machine:
+
+```shell
+git clone https://github.com/yourusername/Cat-App.git
+cd cat-app
+npm install
+npm start
