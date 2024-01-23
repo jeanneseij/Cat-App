@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { CenteredContainer, StyledSelect, ImagesContainer, ImageContainer, Image, LoadMoreButton, ViewDetailsButton} from './HomePageStyles';
 import { BreedOption, ImageType, fetchBreedOptions, fetchBreedImages } from '../services/catApi';
 import ApiErrorAlert from '../components/ApiErrorAlertComponent';
 import LoadingIcon from '../components/LoadingIconComponent'
+import { useCatBreedContext } from '../contexts/CatBreedContext';
 
 const HomePage = () => {
   const [breedOptions, setBreedOptions] = useState<BreedOption[]>([]);
-  const [selectedBreed, setSelectedBreed] = useState<BreedOption | null>(null);
   const [images, setImages] = useState<ImageType[]>([]);
   const [displayCount, setDisplayCount] = useState<number>(5);
   const [breedOptionsError, setBreedOptionsError] = useState<boolean>(false);
   const [breedImagesError, setBreedImagesError] = useState<boolean>(false);
   const [isFetchingBreeds, setIsFetchingBreeds] = useState<boolean>(true);
   const [isFetchingImages, setIsFetchingImages] = useState<boolean>(false);
+  const { selectedBreed, setSelectedBreed } = useCatBreedContext();
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     async function fetchData() {
@@ -66,15 +66,6 @@ const HomePage = () => {
   const handleLoadMore = () => {
     setDisplayCount(prevCount => Math.min(prevCount + 5, images.length));
   };
-
-  useEffect(() => {
-    const breedIdFromQuery = new URLSearchParams(location.search).get('breedId');
-    if (breedIdFromQuery) {
-      fetchBreedImages(breedIdFromQuery);
-      const selectedBreedOption = breedOptions.find(option => option.value === breedIdFromQuery);
-      setSelectedBreed(selectedBreedOption || null);
-    }
-  }, [breedOptions, location.search]);
 
   return (
     <CenteredContainer>
